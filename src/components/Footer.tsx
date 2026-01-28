@@ -1,22 +1,27 @@
 import { Linkedin, Facebook, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { MAIN_NAV_LINKS } from "@/constants/navigation";
+import { SocialLink } from "@/types";
 
-const footerLinks = [
-  { name: "About", href: "#about" },
-  { name: "Services", href: "#services" },
-  { name: "Process", href: "#process" },
-  { name: "Portfolio", href: "#portfolio" },
-  { name: "Contact", href: "#contact" },
-];
-
-const socialLinks = [
+const SOCIAL_LINKS: SocialLink[] = [
   { name: "LinkedIn", icon: Linkedin, href: "#" },
   { name: "Facebook", icon: Facebook, href: "#" },
   { name: "Twitter", icon: Twitter, href: "#" },
 ];
 
+const CONTACT_INFO = [
+  { label: "Email", value: "info@positivus.com" },
+  { label: "Phone", value: "+1 (555) 123-4567" },
+  { label: "Address", value: "123 Innovation Drive\nDigital District, CA 90210" },
+];
+
 const Footer = () => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // In a real app, this would handle newsletter subscription
+  };
+
   return (
     <footer className="bg-secondary text-secondary-foreground">
       <div className="container mx-auto px-4 md:px-6 lg:px-8 py-10 md:py-12 lg:py-16">
@@ -25,7 +30,7 @@ const Footer = () => {
           {/* Logo & Nav */}
           <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-12">
             {/* Logo */}
-            <a href="/" className="flex items-center gap-2">
+            <a href="/" className="flex items-center gap-2" aria-label="Positivus Home">
               <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M18 2L22.5 13.5L34 18L22.5 22.5L18 34L13.5 22.5L2 18L13.5 13.5L18 2Z" fill="currentColor" />
               </svg>
@@ -33,8 +38,8 @@ const Footer = () => {
             </a>
 
             {/* Nav Links */}
-            <nav className="flex flex-wrap gap-4 md:gap-6">
-              {footerLinks.map((link) => (
+            <nav className="flex flex-wrap gap-4 md:gap-6" aria-label="Footer Navigation">
+              {MAIN_NAV_LINKS.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
@@ -48,12 +53,12 @@ const Footer = () => {
 
           {/* Social Links */}
           <div className="flex gap-4">
-            {socialLinks.map((social) => (
+            {SOCIAL_LINKS.map((social) => (
               <a
                 key={social.name}
                 href={social.href}
                 className="w-10 h-10 bg-secondary-foreground text-secondary rounded-full flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
-                aria-label={social.name}
+                aria-label={`Visit our ${social.name} page`}
               >
                 <social.icon className="w-5 h-5" />
               </a>
@@ -69,31 +74,45 @@ const Footer = () => {
               Contact us:
             </span>
             <div className="space-y-2 text-sm text-secondary-foreground/80">
-              <p>Email: info@positivus.com</p>
-              <p>Phone: +1 (555) 123-4567</p>
-              <p>Address: 123 Innovation Drive<br />Digital District, CA 90210</p>
+              {CONTACT_INFO.map((info) => (
+                <p key={info.label}>
+                  {info.label}: {info.value.includes("\n") ? (
+                    <>
+                      <br />
+                      {info.value}
+                    </>
+                  ) : (
+                    info.value
+                  )}
+                </p>
+              ))}
             </div>
           </div>
 
           {/* Newsletter */}
           <div className="bg-secondary-foreground/10 rounded-2xl p-6 lg:w-96">
-            <div className="flex flex-col sm:flex-row gap-3">
+            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
               <Input
                 type="email"
                 placeholder="Email"
+                required
                 className="flex-1 bg-transparent border-secondary-foreground/30 text-secondary-foreground placeholder:text-secondary-foreground/50 rounded-xl"
+                aria-label="Email for newsletter"
               />
-              <Button className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl px-6 whitespace-nowrap">
+              <Button
+                type="submit"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl px-6 whitespace-nowrap"
+              >
                 Subscribe to news
               </Button>
-            </div>
+            </form>
           </div>
         </div>
 
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 mt-8 pt-6 border-t border-secondary-foreground/20">
           <p className="text-sm text-secondary-foreground/60">
-            © 2024 Positivus. All Rights Reserved.
+            © {new Date().getFullYear()} Positivus. All Rights Reserved.
           </p>
           <a
             href="#"
