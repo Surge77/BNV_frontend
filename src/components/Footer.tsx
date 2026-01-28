@@ -1,0 +1,110 @@
+import { Linkedin, Facebook, Twitter } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+
+const footerLinks = [
+  { name: "About", href: "#about" },
+  { name: "Services", href: "#services" },
+  { name: "Process", href: "#process" },
+  { name: "Portfolio", href: "#portfolio" },
+  { name: "Contact", href: "#contact" },
+];
+
+const socialLinks = [
+  { name: "LinkedIn", icon: Linkedin, href: "#" },
+  { name: "Facebook", icon: Facebook, href: "#" },
+  { name: "Twitter", icon: Twitter, href: "#" },
+];
+
+const Footer = () => {
+  return (
+    <footer className="bg-secondary text-secondary-foreground">
+      <div className="container mx-auto px-4 md:px-6 lg:px-8 py-10 md:py-12 lg:py-16">
+        {/* Top Section */}
+        <div className="flex flex-col lg:flex-row justify-between gap-8 lg:gap-12">
+          {/* Logo & Nav */}
+          <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-12">
+            {/* Logo */}
+            <a href="/" className="flex items-center gap-2">
+              <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 2L22.5 13.5L34 18L22.5 22.5L18 34L13.5 22.5L2 18L13.5 13.5L18 2Z" fill="currentColor" />
+              </svg>
+              <span className="text-xl md:text-2xl font-bold">Positivus</span>
+            </a>
+
+            {/* Nav Links */}
+            <nav className="flex flex-wrap gap-4 md:gap-6">
+              {footerLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="text-sm text-secondary-foreground/80 hover:text-primary transition-colors underline underline-offset-4"
+                >
+                  {link.name}
+                </a>
+              ))}
+            </nav>
+          </div>
+
+          {/* Social Links */}
+          <div className="flex gap-4">
+            {socialLinks.map((social) => (
+              <a
+                key={social.name}
+                href={social.href}
+                className="w-10 h-10 bg-secondary-foreground text-secondary rounded-full flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+                aria-label={social.name}
+              >
+                <social.icon className="w-5 h-5" />
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* Middle Section */}
+        <div className="flex flex-col lg:flex-row justify-between gap-8 mt-10 md:mt-12 pt-8 border-t border-secondary-foreground/20">
+          {/* Contact Info */}
+          <div>
+            <span className="inline-block bg-primary text-primary-foreground px-3 py-1 rounded-md text-sm font-medium mb-4">
+              Contact us:
+            </span>
+            <div className="space-y-2 text-sm text-secondary-foreground/80">
+              <p>Email: info@positivus.com</p>
+              <p>Phone: +1 (555) 123-4567</p>
+              <p>Address: 123 Innovation Drive<br />Digital District, CA 90210</p>
+            </div>
+          </div>
+
+          {/* Newsletter */}
+          <div className="bg-secondary-foreground/10 rounded-2xl p-6 lg:w-96">
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Input
+                type="email"
+                placeholder="Email"
+                className="flex-1 bg-transparent border-secondary-foreground/30 text-secondary-foreground placeholder:text-secondary-foreground/50 rounded-xl"
+              />
+              <Button className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl px-6 whitespace-nowrap">
+                Subscribe to news
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Section */}
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 mt-8 pt-6 border-t border-secondary-foreground/20">
+          <p className="text-sm text-secondary-foreground/60">
+            © 2024 Positivus. All Rights Reserved.
+          </p>
+          <a
+            href="#"
+            className="text-sm text-secondary-foreground/80 underline underline-offset-4 hover:text-primary"
+          >
+            Privacy Policy
+          </a>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

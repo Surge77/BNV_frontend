@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Positivus Design System - Space Grotesk font with lime green accent */
+
+@layer base {
+  :root {
+    /* Core Colors - Exact from Figma */
+    --lime: 84 100% 70%;           /* #B9FF66 */
+    --dark: 235 14% 12%;           /* #191A23 */
+    --light-gray: 0 0% 95%;        /* #F3F3F3 */
+    
+    /* Semantic tokens */
+    --background: 0 0% 100%;
+    --foreground: 235 14% 12%;     /* Dark text */
+    
+    --card: 0 0% 95%;              /* Light gray cards */
+    --card-foreground: 235 14% 12%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 235 14% 12%;
+    
+    --primary: 84 100% 70%;        /* Lime green */
+    --primary-foreground: 235 14% 12%;
+    
+    --secondary: 235 14% 12%;      /* Dark */
+    --secondary-foreground: 0 0% 100%;
+    
+    --muted: 0 0% 95%;
+    --muted-foreground: 235 10% 40%;
+    
+    --accent: 84 100% 70%;
+    --accent-foreground: 235 14% 12%;
+    
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 84 100% 70%;
+    
+    --radius: 0.5rem;
+    
+    /* Sidebar */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 235 14% 12%;
+    --sidebar-primary: 84 100% 70%;
+    --sidebar-primary-foreground: 235 14% 12%;
+    --sidebar-accent: 0 0% 95%;
+    --sidebar-accent-foreground: 235 14% 12%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 84 100% 70%;
+  }
+
+  .dark {
+    --background: 235 14% 12%;
+    --foreground: 0 0% 100%;
+    
+    --card: 235 14% 16%;
+    --card-foreground: 0 0% 100%;
+    
+    --popover: 235 14% 12%;
+    --popover-foreground: 0 0% 100%;
+    
+    --primary: 84 100% 70%;
+    --primary-foreground: 235 14% 12%;
+    
+    --secondary: 0 0% 95%;
+    --secondary-foreground: 235 14% 12%;
+    
+    --muted: 235 14% 20%;
+    --muted-foreground: 0 0% 70%;
+    
+    --accent: 84 100% 70%;
+    --accent-foreground: 235 14% 12%;
+    
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 235 14% 20%;
+    --input: 235 14% 20%;
+    --ring: 84 100% 70%;
+    
+    --sidebar-background: 235 14% 12%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 84 100% 70%;
+    --sidebar-primary-foreground: 235 14% 12%;
+    --sidebar-accent: 235 14% 16%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 235 14% 20%;
+    --sidebar-ring: 84 100% 70%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-space antialiased;
+  }
+}
+
+@layer components {
+  /* Section heading with lime highlight */
+  .section-heading {
+    @apply inline-block bg-primary text-primary-foreground px-2 py-1 rounded-md text-xl md:text-2xl font-medium;
+  }
+  
+  /* Service card styles */
+  .service-card {
+    @apply relative p-6 md:p-8 rounded-[2.5rem] border border-border shadow-[0_5px_0_0_hsl(var(--dark))] transition-transform hover:-translate-y-1;
+  }
+  
+  .service-card-light {
+    @apply bg-card;
+  }
+  
+  .service-card-lime {
+    @apply bg-primary;
+  }
+  
+  .service-card-dark {
+    @apply bg-secondary text-secondary-foreground;
+  }
+  
+  /* Process accordion item */
+  .process-item {
+    @apply border border-border rounded-[2.5rem] p-6 md:p-8 transition-all;
+  }
+  
+  .process-item-expanded {
+    @apply bg-primary shadow-[0_5px_0_0_hsl(var(--dark))];
+  }
+  
+  /* Testimonial card */
+  .testimonial-card {
+    @apply bg-secondary text-secondary-foreground p-6 md:p-8 rounded-[2.5rem] border border-primary relative;
+  }
+  
+  .testimonial-bubble::after {
+    content: '';
+    @apply absolute -bottom-4 left-12 w-0 h-0 border-l-[20px] border-l-transparent border-r-[20px] border-r-transparent border-t-[20px] border-t-secondary;
+  }
+}
+
+@layer utilities {
+  /* Custom animations */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out forwards;
+  }
+  
+  .animate-scroll {
+    animation: scroll 30s linear infinite;
+  }
+  
+  /* Mobile-specific faster scroll */
+  @media (max-width: 640px) {
+    .animate-scroll {
+      animation: scroll 20s linear infinite;
+    }
+  }
+  
+  /* Tablet-specific scroll */
+  @media (min-width: 641px) and (max-width: 1024px) {
+    .animate-scroll {
+      animation: scroll 25s linear infinite;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slideUp {
+    from { 
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to { 
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+}
