@@ -20,56 +20,55 @@ const ServiceCard = ({ title, variant, image }: ServiceCardProps) => {
   const arrowBg = variant === "dark" ? "bg-secondary-foreground" : "bg-secondary";
   const arrowColor = variant === "dark" ? "text-secondary" : "text-secondary-foreground";
 
+  // Split title into two lines for the badge
   const titleParts = title.split(" ");
-  const firstLine = titleParts.slice(0, Math.ceil(titleParts.length / 2)).join(" ");
-  const secondLine = titleParts.slice(Math.ceil(titleParts.length / 2)).join(" ");
+  const midPoint = Math.ceil(titleParts.length / 2);
+  const firstLine = titleParts.slice(0, midPoint).join(" ");
+  const secondLine = titleParts.slice(midPoint).join(" ");
 
   return (
     <motion.div
       whileHover={{ y: -4 }}
-      className={`service-card ${bgClass} ${textClass} flex flex-col md:flex-row items-start md:items-end justify-between gap-4 min-h-[180px] md:min-h-[200px]`}
+      className={`service-card ${bgClass} ${textClass} relative overflow-hidden`}
     >
-      <div className="flex flex-col justify-between h-full flex-1">
-        <div>
-          <span className={`inline-block px-2 py-1 rounded-md text-lg md:text-xl font-medium ${variant === "light" ? "bg-primary" : variant === "lime" ? "bg-background" : "bg-primary text-foreground"}`}>
-            {firstLine}
-          </span>
-          {secondLine && (
-            <span className={`block mt-1 px-2 py-1 rounded-md text-lg md:text-xl font-medium w-fit ${variant === "light" ? "bg-primary" : variant === "lime" ? "bg-background" : "bg-primary text-foreground"}`}>
-              {secondLine}
-            </span>
-          )}
+      {/* Title Badge */}
+      <div className="mb-auto">
+        <div className={`inline-block px-2 py-1 rounded-md text-base md:text-lg font-medium ${variant === "light" ? "bg-primary text-foreground" : variant === "lime" ? "bg-foreground text-background" : "bg-primary text-foreground"}`}>
+          {firstLine}
         </div>
-        
-        <a 
-          href="#" 
-          className="flex items-center gap-2 mt-4 group"
-        >
-          <span className={`flex items-center justify-center w-8 h-8 rounded-full ${arrowBg}`}>
-            <ArrowUpRight className={`w-4 h-4 ${arrowColor} group-hover:rotate-45 transition-transform`} />
-          </span>
-          <span className="text-sm md:text-base font-medium underline-offset-4 hover:underline">
-            Learn more
-          </span>
-        </a>
+        {secondLine && (
+          <div className={`inline-block px-2 py-1 rounded-md text-base md:text-lg font-medium mt-1 ${variant === "light" ? "bg-primary text-foreground" : variant === "lime" ? "bg-foreground text-background" : "bg-primary text-foreground"}`}>
+            {secondLine}
+          </div>
+        )}
       </div>
 
+      {/* Image positioned absolutely on the right */}
       {image && (
-        <div className="w-full md:w-1/3 flex-shrink-0">
-          <img src={image} alt={title} className="w-full h-auto object-contain" />
+        <div className="absolute right-4 top-1/2 -translate-y-1/2 w-32 md:w-40 lg:w-48">
+          <img src={image} alt={title} className="w-full h-auto object-contain opacity-90" />
         </div>
       )}
+
+      {/* Learn More Link */}
+      <a
+        href="#"
+        className="flex items-center gap-2 mt-16 group relative z-10"
+      >
+        <span className={`flex items-center justify-center w-8 h-8 rounded-full ${arrowBg}`}>
+          <ArrowUpRight className={`w-4 h-4 ${arrowColor} group-hover:rotate-45 transition-transform`} />
+        </span>
+        <span className="text-sm md:text-base font-normal">
+          Learn more
+        </span>
+      </a>
     </motion.div>
   );
 };
 
 const services = [
-  { title: "Search Engine Optimization", variant: "light" as const, image: serviceSeo },
-  { title: "Pay-Per-Click Advertising", variant: "lime" as const, image: servicePpc },
-  { title: "Social Media Strategy", variant: "dark" as const },
-  { title: "Email Marketing Automation", variant: "light" as const },
-  { title: "Content Strategy & Creation", variant: "lime" as const },
-  { title: "Performance Analytics", variant: "dark" as const },
+  { title: "Search engine optimization", variant: "light" as const, image: serviceSeo },
+  { title: "Pay-per-click advertising", variant: "lime" as const, image: servicePpc },
 ];
 
 const Services = () => {
